@@ -9,8 +9,6 @@ public class ThemeController : MonoBehaviour
     public List<ThemeItem> AllItems;
 
     public RectTransform ToggleImg;
-    public Color DarkTheme;
-    public Color LightTheme;
 
     public float circleXPos = 55f;
     bool IsDarkTheme = true;
@@ -26,13 +24,13 @@ public class ThemeController : MonoBehaviour
         {
             if (RefManager.Instance.GetThemeID("Theme") == 0)
             {
-                AllItems[i].SetTheme(DarkTheme);
+                AllItems[i].SetTheme(true);
                 IsDarkTheme = true;
                 ToggleImg.localPosition = new Vector3(-circleXPos, ToggleImg.localPosition.y, ToggleImg.localPosition.z);
             }
             else
             {
-                AllItems[i].SetTheme(LightTheme);
+                AllItems[i].SetTheme(false);
                 IsDarkTheme = false;
                 ToggleImg.localPosition = new Vector3(circleXPos, ToggleImg.localPosition.y, ToggleImg.localPosition.z);
             }
@@ -40,6 +38,7 @@ public class ThemeController : MonoBehaviour
     }
     public void OnThemeButtonClick()
     {
+        MainSfxController.Instance.PlaySound();
         if (IsDarkTheme)
         {
             RefManager.Instance.SetThemeID("Theme", 1);
